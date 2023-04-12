@@ -12,14 +12,36 @@
 // 输入：n = 1
 // 输出：1
 //  
+
 #include<iostream>
+#include<vector>
 
 using namespace std;
 
 class Solution {
 public:
-    int numTrees(int n) {
+    int numTrees1(int n) {
+        vector<int> nt(n+1,0);
+        nt[0]=1;
+        nt[1]=1;
+        //笛卡尔积
+        for (size_t i = 2; i <= n; i++)
+        {
+            for (size_t j = 1; j <= i; j++)
+            {
+                nt[i]+=nt[j-1]*nt[i-j];
+            }
+            
+        }
+        return nt[n];
+    }
 
+    int numTrees(int n) {
+        long long C = 1;
+        for (int i = 0; i < n; ++i) {
+            C = C * 2 * (2 * i + 1) / (i + 2);
+        }
+        return (int)C;
     }
 };
 
